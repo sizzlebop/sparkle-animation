@@ -2,8 +2,6 @@
 
 A mesmerizing interactive animation featuring glowing sparkles that create beautiful patterns and explode with colorful bursts when hovered. Built with pure HTML, CSS, and JavaScript - no dependencies required.
 
-![Sparkle Animation Demo](demo.gif)
-
 ## 🌟 Features
 
 - **Continuous Sparkle Animation** - Smooth, endless movement patterns
@@ -93,15 +91,3 @@ Tested and working in:
 ## 📝 License
 
 MIT License - feel free to use in your projects!
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a pull request
-
-## ✨ Credits
-
-Created by [Your Name] - Inspired by particle systems and interactive web animations.

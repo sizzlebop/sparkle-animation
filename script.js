@@ -67,17 +67,23 @@ document.addEventListener('DOMContentLoaded', () => {
         controlPanel.classList.toggle('collapsed');
     });
 
+    // Initialize all range inputs with their current values
     document.querySelectorAll('.control-group input[type="range"]').forEach(input => {
+        updateValueDisplay(input);
+    });
+
+    function updateValueDisplay(input) {
         const display = input.parentElement.querySelector('.value-display');
         display.textContent = input.value + (input.id === 'sparkSize' ? 'px' : 
                                            input.id === 'animationSpeed' ? 's' : 
                                            input.id === 'glowIntensity' ? 'x' : '');
-    });
+    }
 
-    document.getElementById('sparkCount').addEventListener('input', (e) => {
+    const sparkCountInput = document.getElementById('sparkCount');
+    sparkCountInput.addEventListener('input', (e) => {
         const count = parseInt(e.target.value);
         updateSparkCount(count);
-        e.target.parentElement.querySelector('.value-display').textContent = count;
+        updateValueDisplay(e.target);
     });
 
     document.getElementById('sparkSize').addEventListener('input', (e) => {
@@ -86,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             spark.style.width = size + 'px';
             spark.style.height = size + 'px';
         });
-        e.target.parentElement.querySelector('.value-display').textContent = size + 'px';
+        updateValueDisplay(e.target);
     });
 
     document.getElementById('glowIntensity').addEventListener('input', (e) => {
@@ -94,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sparks.forEach(spark => {
             spark.style.filter = `blur(${intensity}px)`;
         });
-        e.target.parentElement.querySelector('.value-display').textContent = intensity + 'x';
+        updateValueDisplay(e.target);
     });
 
     document.getElementById('animationSpeed').addEventListener('input', (e) => {
@@ -102,13 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
         sparks.forEach(spark => {
             spark.style.animationDuration = speed + 's';
         });
-        e.target.parentElement.querySelector('.value-display').textContent = speed + 's';
+        updateValueDisplay(e.target);
     });
 
     document.getElementById('burstCount').addEventListener('input', (e) => {
         const count = parseInt(e.target.value);
         window.burstCount = count;
-        e.target.parentElement.querySelector('.value-display').textContent = count;
+        updateValueDisplay(e.target);
     });
 
     document.getElementById('colorTheme').addEventListener('change', (e) => {
@@ -130,7 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.burstCount = 8;
 
     function updateSparkCount(count) {
+        // Remove existing sparks
         container.innerHTML = '';
+        
+        // Create new sparks
         for (let i = 0; i < count; i++) {
             const spark = document.createElement('div');
             spark.className = 'spark';
@@ -146,6 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(spark);
             initializeSpark(spark, i / count * Math.PI * 2);
         }
+        
+        // Update sparks reference
         sparks = document.querySelectorAll('.spark');
     }
 
@@ -224,6 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
         spark.style.height = document.getElementById('sparkSize').value + 'px';
     }
 
-    // Initialize sparks
-    updateSparkCount(30);
+    // Initialize with 50 sparks
+    updateSparkCount(50);
 });
